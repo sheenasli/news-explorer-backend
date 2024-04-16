@@ -1,0 +1,21 @@
+{
+  "name": "news-explorer-backend",
+  "version": "0.1.0",
+  "description": "Backend for News Explorer application ",
+  "main": "app.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Sheena Lyn Irvin",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^6.12.8",
+    "validator": "^13.11.0"
+  }
+}
