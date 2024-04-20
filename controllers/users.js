@@ -7,18 +7,6 @@ const NotFoundError = require("../utils/errors/NotFound");
 const ConflictError = require("../utils/errors/ConflictError");
 const UnauthorizedError = require("../utils/errors/UnauthorizedError");
 
-const getCurrentUser = (req, res) => {
-  const userId = req.user._id;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError("No user with matching ID found");
-      }
-      res.send(user);
-    })
-    .catch(next);
-};
-
 const createUser = (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -79,6 +67,22 @@ const loginUser = (req, res, next) => {
       } else {
         next(err);
       }
+    });
+};
+
+const getCurrentUser = (req, res, next) => {
+  console.log(req.user._id);
+  const id = req.user._id;
+
+  User.findById(id)
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError("No user with matching ID found");
+      }
+      res.send(user);
+    })
+    .catch((err) => {
+      next(err);
     });
 };
 
