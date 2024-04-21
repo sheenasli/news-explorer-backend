@@ -9,11 +9,11 @@ const authError = (next) => {
 const handleAuthorization = (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (!authorization || !authorization.startsWith("Bearer")) {
+  if (!authorization || !authorization.startsWith("Bearer ")) {
     return authError(next);
   }
 
-  const token = authorization.replace("Bearer");
+  const token = authorization.replace("Bearer ", "");
   let payload;
 
   try {
