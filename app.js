@@ -3,6 +3,9 @@ const rateLimit = require("express-rate-limit");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
+const { errors } = require("celebrate");
+const errorHandler = require("./middlewares/error-handler");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const { PORT = 3001 } = process.env;
 
@@ -27,7 +30,11 @@ const routes = require("./routes");
 app.use(helmet());
 app.use(limiter);
 app.use(express.json());
+app.use(requestLogger);
 app.use(routes);
+app.use(errorLogger);
+app.use(errors());
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
