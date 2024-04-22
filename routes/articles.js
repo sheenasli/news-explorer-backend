@@ -4,7 +4,7 @@ const {
   getArticles,
   addArticle,
   removeArticle,
-} = require("../controllers/articles2");
+} = require("../controllers/articles");
 const {
   validateArticleBody,
   validateId,
