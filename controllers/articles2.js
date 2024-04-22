@@ -1,5 +1,5 @@
 const Article = require("../models/article");
-const InvalidError = require("../utils/errors/invalidError");
+const InvalidError = require();
 const NotFoundError = require("../utils/errors/notFound");
 const ForbiddenError = require("../utils/errors/forbiddenError");
 
