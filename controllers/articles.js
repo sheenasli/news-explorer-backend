@@ -1,7 +1,7 @@
 const Article = require("../models/article");
-const InvalidError = require("../utils/errors/invalidError");
-const NotFoundError = require("../utils/errors/notFound");
-const ForbiddenError = require("../utils/errors/forbiddenError");
+const InvalidError = require("../utils/errors/InvalidError");
+const NotFoundError = require("../utils/errors/NotFound");
+const ForbiddenError = require("../utils/errors/ForbiddenError");
 
 const getArticles = (req, res, next) => {
   Article.find({})
