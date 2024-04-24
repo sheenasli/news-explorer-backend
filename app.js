@@ -28,6 +28,12 @@ mongoose.connect(
   (e) => console.log("DB connection error", e)
 );
 
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("Server will crash now");
+  }, 0);
+});
+
 const routes = require("./routes");
 app.use(helmet());
 app.use(limiter);
