@@ -31,12 +31,10 @@ The project is the backend of the News Explorer project. Routes and Controllers 
 
 ## Links
 
-- The project can be seen live using the this [https://.com]
-- The project's backend can be found by using this [https://github.com/sheenasli/]
+- The project can be seen live using the this [https://www.newsexplorer.spacegas.com/]
+- The project's backend can be found by using this [https://github.com/sheenasli/news-explorer-backend]
 
 ## Images of Requests and Demo Server
 
-please update images
-
-<img align="center" src="./Images/Postman.png" alt="Postman image">
-<img align="center" src="./Images/MongoDB.png" alt="MongoDb image">
+<!-- <img align="center" src="./Images/Postman.png" alt="Postman image"> -->
+<!-- <img align="center" src="./Images/MongoDB.png" alt="MongoDb image"> -->
