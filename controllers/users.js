@@ -53,14 +53,14 @@ const loginUser = (req, res, next) => {
     return next(new InvalidError("Invalid Credentials"));
   }
 
-  User.findUserByCredentials(email, password)
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
         {
           expiresIn: "7d",
-        }
+        },
       );
       res.send({ token });
     })

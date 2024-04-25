@@ -6,7 +6,7 @@ const ForbiddenError = require("../utils/errors/ForbiddenError");
 const getArticles = (req, res, next) => {
   Article.find({})
     .then((articles) => res.send(articles))
-    .catch((next) => {});
+    .catch(next);
 };
 
 const addArticle = (req, res, next) => {
