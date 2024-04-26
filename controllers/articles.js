@@ -3,10 +3,20 @@ const InvalidError = require("../utils/errors/InvalidError");
 const NotFoundError = require("../utils/errors/NotFound");
 const ForbiddenError = require("../utils/errors/ForbiddenError");
 
+// const getArticles = (req, res, next) => {
+//   Article.find({})
+//     .then((articles) => res.send(articles))
+//     .catch(next);
+// };
+
 const getArticles = (req, res, next) => {
-  Article.find({})
-    .then((articles) => res.send(articles))
-    .catch(next);
+  Article.find({ owner: req.user._id })
+    .then((articles) => {
+      res.send(articles);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
 const addArticle = (req, res, next) => {
