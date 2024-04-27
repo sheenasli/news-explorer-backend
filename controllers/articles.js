@@ -2,6 +2,11 @@ const Article = require("../models/article");
 const InvalidError = require("../utils/errors/InvalidError");
 const NotFoundError = require("../utils/errors/NotFound");
 const ForbiddenError = require("../utils/errors/ForbiddenError");
+const {
+  INVALID_CREDENTIALS,
+  ARTICLE_NOT_FOUND,
+  NOT_OWNER,
+} = require("../utils/constants");
 
 // const getArticles = (req, res, next) => {
 //   Article.find({})
@@ -31,7 +36,7 @@ const addArticle = (req, res, next) => {
     .catch((err) => {
       console.error(err);
       if (err.name === `ValidationError`) {
-        next(new InvalidError("Invalid Credentials"));
+        next(new InvalidError(INVALID_CREDENTIALS));
       }
       next(err);
     });
@@ -43,13 +48,13 @@ const removeArticle = (req, res, next) => {
 
   Article.findById(articleId)
     .select("+owner")
-    .orFail(() => new NotFoundError("Article ID cannot be found"))
+    .orFail(() => new NotFoundError(ARTICLE_NOT_FOUND))
     .then((article) => {
       if (userId !== article.owner.toString()) {
-        throw new ForbiddenError("You are not the owner of this article");
+        throw new ForbiddenError(NOT_OWNER);
       }
       return Article.findByIdAndRemove(articleId)
-        .orFail(() => new NotFoundError("Article ID cannot be found"))
+        .orFail(() => new NotFoundError(ARTICLE_NOT_FOUND))
         .then((removedArticle) => res.send(removedArticle))
         .catch(next);
     })

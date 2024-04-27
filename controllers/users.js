@@ -6,6 +6,13 @@ const InvalidError = require("../utils/errors/InvalidError");
 const NotFoundError = require("../utils/errors/NotFound");
 const ConflictError = require("../utils/errors/ConflictError");
 const UnauthorizedError = require("../utils/errors/UnauthorizedError");
+const {
+  VALID_EMAIL,
+  EMAIL_IN_USE,
+  INVALID_CREDENTIALS,
+  USER_NOT_FOUND,
+  CREATE_USER_INVALID,
+} = require("../utils/constants");
 
 const createUser = (req, res, next) => {
   const { name, email, password } = req.body;
@@ -15,11 +22,11 @@ const createUser = (req, res, next) => {
     .then((user) => {
       if (!email) {
         // throw new Error("Enter a valid email");
-        return next(new InvalidError("Enter a valid email"));
+        return next(new InvalidError(VALID_EMAIL));
       }
       if (user) {
         // throw new Error("Email is already in use");
-        return next(new ConflictError("Email is already in use"));
+        return next(new ConflictError(EMAIL_IN_USE));
       }
       return bcrypt.hash(password, 10);
     })
@@ -35,11 +42,11 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       console.error(err);
       if (err.name === `ValidationError`) {
-        next(new InvalidError("Invalid Request Error on createUser"));
+        next(new InvalidError(CREATE_USER_INVALID));
       } else if (err.message === "Enter a valid email") {
-        next(new InvalidError("Invalid Error on createUser"));
+        next(new InvalidError(CREATE_USER_INVALID));
       } else if (err.message === "Email is already in use") {
-        next(new ConflictError(`Email ${email} already registered`));
+        next(new ConflictError(EMAIL_IN_USE));
       } else {
         next(err);
       }
@@ -50,7 +57,7 @@ const loginUser = (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new InvalidError("Invalid Credentials"));
+    return next(new InvalidError(INVALID_CREDENTIALS));
   }
 
   return User.findUserByCredentials(email, password)
@@ -67,7 +74,7 @@ const loginUser = (req, res, next) => {
     .catch((err) => {
       console.error(err);
       if (err.message === "Incorrect email or password") {
-        next(new UnauthorizedError("Invalid Credentials"));
+        next(new UnauthorizedError(INVALID_CREDENTIALS));
       } else {
         next(err);
       }
@@ -81,7 +88,7 @@ const getCurrentUser = (req, res, next) => {
   User.findById(id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError("No user with matching ID found");
+        throw new NotFoundError(USER_NOT_FOUND);
       }
       res.send(user);
     })

@@ -8,6 +8,7 @@ const { errors } = require("celebrate");
 const errorHandler = require("./middlewares/error-handler");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const { limiter } = require("./utils/limiter");
+const { MONGO_DB_CONNECTION } = require("./utils/config");
 
 const { PORT = 3001 } = process.env;
 
@@ -16,12 +17,20 @@ app.use(cors());
 
 mongoose.set("strictQuery", true);
 mongoose.connect(
-  "mongodb://127.0.0.1:27017/news_explorer_db",
+  MONGO_DB_CONNECTION,
   (r) => {
     console.log("connected to DB", r);
   },
   (e) => console.log("DB connection error", e),
 );
+
+// mongoose.connect(
+//   "mongodb://127.0.0.1:27017/news_explorer_db",
+//   (r) => {
+//     console.log("connected to DB", r);
+//   },
+//   (e) => console.log("DB connection error", e),
+// );
 
 app.get("/crash-test", () => {
   setTimeout(() => {
