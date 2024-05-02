@@ -21,11 +21,9 @@ const createUser = (req, res, next) => {
     .select("+password")
     .then((user) => {
       if (!email) {
-        // throw new Error("Enter a valid email");
         return next(new InvalidError(VALID_EMAIL));
       }
       if (user) {
-        // throw new Error("Email is already in use");
         return next(new ConflictError(EMAIL_IN_USE));
       }
       return bcrypt.hash(password, 10);

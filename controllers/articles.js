@@ -8,12 +8,6 @@ const {
   NOT_OWNER,
 } = require("../utils/constants");
 
-// const getArticles = (req, res, next) => {
-//   Article.find({})
-//     .then((articles) => res.send(articles))
-//     .catch(next);
-// };
-
 const getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
     .then((articles) => {

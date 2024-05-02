@@ -24,14 +24,6 @@ mongoose.connect(
   (e) => console.log("DB connection error", e),
 );
 
-// mongoose.connect(
-//   "mongodb://127.0.0.1:27017/news_explorer_db",
-//   (r) => {
-//     console.log("connected to DB", r);
-//   },
-//   (e) => console.log("DB connection error", e),
-// );
-
 app.get("/crash-test", () => {
   setTimeout(() => {
     throw new Error("Server will crash now");
