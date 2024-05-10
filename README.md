@@ -31,7 +31,7 @@ The project is the backend of the News Explorer project. Routes and Controllers 
 
 ## Links
 
-- The project can be seen live using the this [https://www.newsexplorer.spacegas.com/]
+- The project can be seen live using the this [https://www.newsexplorer.crabdance.com/]
 - The project's backend can be found by using this [https://github.com/sheenasli/news-explorer-backend]
 
 ## Images of Requests and Demo Server
